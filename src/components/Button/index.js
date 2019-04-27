@@ -45,23 +45,19 @@ const Wrap = styled.button`
 `;
 
 class Button extends React.Component {
-    constructor (props) {
-        super(props);
-    }
-
     onClick = (e) => {
-        const { disabled, onClick } = this.props;
+        const { greyed, onClick } = this.props;
 
-        if (!disabled && onClick) {
+        if (!greyed) {
             onClick(e);
         }
     }
 
     render () {
-        const { children, className, onClick } = this.props;
+        const { children, className, onClick, ...others } = this.props;
 
         return (
-            <Wrap className={className} onClick={this.onClick}>
+            <Wrap className={className} onClick={this.onClick} {...others}>
                 { children }
             </Wrap>
         );

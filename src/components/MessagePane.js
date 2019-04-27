@@ -29,6 +29,7 @@ const StyledInputBar = styled(InputBar)`
 class MessagePane extends React.Component {
     constructor (props) {
         super(props);
+        this.messageList = React.createRef();
 
         this.state = {
             list: props.list || [],
@@ -53,6 +54,18 @@ class MessagePane extends React.Component {
         });
     }
 
+    componentDidMount () {
+        this.autoScroll();
+    }
+    componentDidUpdate () {
+        this.autoScroll();
+    }
+    autoScroll = () => {
+        const elem = this.messageList.current;
+        // elem.scrollIntoView({behavior: 'smooth'});
+        elem.scrollTop = elem.scrollHeight;
+    }
+
     onInputEnter = (value) => {
         this.addToList(value);
     }
@@ -63,7 +76,7 @@ class MessagePane extends React.Component {
 
         return (
             <Wrap className={className}>
-                <MessageList>
+                <MessageList ref={this.messageList}>
                     {
                         list.map((obj, idx) => {
                             const { id } = obj;

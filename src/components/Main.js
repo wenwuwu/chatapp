@@ -49,17 +49,17 @@ const ContentWrap = styled.div`
 const GroupPane = styled(ListPane)`
     margin: 0 5px 0 10px;
     height: 100%;
-    width: 300px;
+    flex: 1;
 `;
 const StyledMessagePane = styled(MessagePane)`
     margin: 0 5px 0 5px;
-    flex: 1;
+    flex: 3;
     height: 100%;
 `;
 const UserPane = styled(ListPane)`
     margin: 0 10px 0 5px;
     height: 100%;
-    width: 300px;
+    flex: 1;
 `;
 
 class Main extends React.Component {

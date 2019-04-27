@@ -76,7 +76,7 @@ class ListPane extends React.Component {
         this.hideInput();
     }
     onInputBlur = (id, value) => {
-        this.hideInput();
+        setTimeout(this.hideInput, 0);  // Make sure button is clickable.
     }
     hideInput = () => {
         this.setState({

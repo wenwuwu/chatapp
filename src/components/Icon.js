@@ -1,7 +1,7 @@
 import React           from 'react';
 import PropTypes       from 'prop-types';
 import styled, { css } from 'styled-components';
-import { noop } from '../utils/utils';
+import { noop }        from '../utils/utils';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import theme from '../theme';
 
@@ -15,7 +15,7 @@ const Icon = ({type, onClick, className}) => (
     <IconElem 
         className={className}
         icon={type} 
-        onClick={onClick} 
+        onClick={onClick}
     />
 );
 
