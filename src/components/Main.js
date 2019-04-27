@@ -6,6 +6,12 @@ import theme           from '../theme.js';
 import Button          from './Button';
 import ListPane        from './ListPane';
 import MessagePane     from './MessagePane';
+import io              from 'socket.io-client';
+
+const socket = io();
+socket.emit('new group', val);
+socket.on('new group', function (msg) {
+});
 
 const center = `
     display: flex;
