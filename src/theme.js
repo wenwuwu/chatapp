@@ -14,6 +14,7 @@ export default {
 
     white : white,
     grey1 : '#e0e0e0',
+    grey2 : '#aaa',
 
     black1,
     blue1,
@@ -21,11 +22,13 @@ export default {
     blue3,
 
     colorBasic: black1,
+    colorLight: black2,
     colorBorder: black2,
     colorPrimary1,
     colorPrimary2,
     colorPrimary3,
 
+    fontSizeSmall: '13px',
     fontSizeBasic: '15px',
     fontSizeInput: '15px',
     fontSizeButton: '15px',

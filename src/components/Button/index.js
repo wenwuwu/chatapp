@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled, { css } from 'styled-components';
 import { bindStyles } from 'styled-props2';
 import style from './style';
+import { noop } from '../../utils/utils';
 
 const Wrap = styled.button`
     ${
@@ -57,10 +58,10 @@ class Button extends React.Component {
     }
 
     render () {
-        const { children, className, onClick, ...others } = this.props;
+        const { children, className, onClick } = this.props;
 
         return (
-            <Wrap className={className} onClick={this.onClick} {...others}>
+            <Wrap className={className} onClick={this.onClick}>
                 { children }
             </Wrap>
         );
@@ -69,13 +70,11 @@ class Button extends React.Component {
 
 Button.propTypes = {
     children: PropTypes.string.isRequired,
+    onClick: PropTypes.func,
 };
 
-/*
 Button.defaultProps = {
-    theme: {
-    }
+    onClick: noop,
 };
-*/
 
 export default Button;

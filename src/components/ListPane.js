@@ -7,6 +7,7 @@ import Button from './Button';
 import theme from '../theme';
 import ListItem from './ListItem';
 import _ from 'lodash';
+import InputBar from './InputBar';
 
 const Wrap = styled.div`
     width: 100%;
@@ -36,10 +37,10 @@ class ListPane extends React.Component {
 
     onClickButton = () => {
         const { list } = this.state;
-        const { onChange } = this.props;
+        const { onChange, defaultItemName } = this.props;
         const obj = {
             id: genId(''),
-            text: '',
+            text: defaultItemName || '',
         };
         const newList = [...list, obj];
         this.setState({
@@ -48,12 +49,17 @@ class ListPane extends React.Component {
         });
         onChange(newList);
     }
-
-    onItemEdit = (id, value) => {
+    onInputEnter = (id, value) => {
         const { list } = this.state;
         const { onChange } = this.props;
         const idx = _.findIndex(list, {id: id});
-        const obj = _.cloneDeep(list[idx]);
+        const old = list[idx];
+
+        this.hideInput();
+        if (old.text === value) {
+            return;
+        }
+        const obj = _.cloneDeep(old);
         obj.text = value;
 
         const newList = [
@@ -66,7 +72,24 @@ class ListPane extends React.Component {
         });
         onChange(newList);
     }
-
+    onInputEsc = (id, value) => {
+        this.hideInput();
+    }
+    onInputBlur = (id, value) => {
+        this.hideInput();
+    }
+    hideInput = () => {
+        this.setState({
+            currentEditingIdx: -1,
+        });
+    }
+    onItemEdit = (id, value) => {
+        const { list } = this.state;
+        const idx = _.findIndex(list, {id: id});
+        this.setState({
+            currentEditingIdx: idx,
+        });
+    }
     onItemRemove = (id) => {
         const { list } = this.state;
         const { onChange } = this.props;
@@ -83,7 +106,7 @@ class ListPane extends React.Component {
     }
 
     render () {
-        const { className, btnName } = this.props;
+        const { className, btnName, defaultItemName } = this.props;
         const { list, currentEditingIdx } = this.state;
 
         return (
@@ -92,13 +115,24 @@ class ListPane extends React.Component {
                     {
                         list.map((obj, idx) => {
                             const { id, text } = obj;
+                            const inputElem = 
+                                <InputBar
+                                    value={text} 
+                                    placeholder=""
+                                    btnText="Add"
+                                    autoSelect={text === defaultItemName}
+                                    onBlur={this.onInputBlur.bind(this, id)} 
+                                    onEnter={this.onInputEnter.bind(this, id)} 
+                                    onEsc={this.onInputEsc.bind(this, id)} 
+                                />;
+                            const input = currentEditingIdx === idx ? inputElem : null;
 
                             return (
                                 <ListItem 
                                     key={id} 
                                     id={id} 
                                     text={text} 
-                                    isEditing={currentEditingIdx === idx}
+                                    input={input}
                                     onEdit={this.onItemEdit.bind(this, id)}
                                     onRemove={this.onItemRemove.bind(this, id)}
                                 />

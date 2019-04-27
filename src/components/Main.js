@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 import theme           from '../theme.js';
 import Button          from './Button';
 import ListPane        from './ListPane';
+import MessagePane     from './MessagePane';
 
 const center = `
     display: flex;
@@ -50,11 +51,10 @@ const GroupPane = styled(ListPane)`
     height: 100%;
     width: 300px;
 `;
-const MessagePane = styled.div`
+const StyledMessagePane = styled(MessagePane)`
     margin: 0 5px 0 5px;
     flex: 1;
     height: 100%;
-    border: 1px solid ${theme.colorBorder};
 `;
 const UserPane = styled(ListPane)`
     margin: 0 10px 0 5px;
@@ -82,9 +82,19 @@ class Main extends React.Component {
                     </LogoWrap>
                 </NavBar>
                 <ContentWrap>
-                    <GroupPane list={[]} btnName="Add Group" onChange={this.onGroupsChange} />
-                    <MessagePane />
-                    <UserPane list={[]} btnName="Add User" onChange={this.onUsersChange} />
+                    <GroupPane 
+                        list={[]} 
+                        defaultItemName="Group name" 
+                        btnName="Add Group"
+                        onChange={this.onGroupsChange} 
+                    />
+                    <StyledMessagePane />
+                    <UserPane 
+                        list={[]} 
+                        defaultItemName="User name" 
+                        btnName="Add User" 
+                        onChange={this.onUsersChange} 
+                    />
                 </ContentWrap>
             </Wrap>
         );
