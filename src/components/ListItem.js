@@ -12,7 +12,7 @@ const Wrap = styled.div`
     justify-content: space-between;
     align-items: center;
     position: relative;
-    ${props => props.isActive && `background: ${theme.grey1}`};
+    ${props => props.isActive && `background: ${theme.colorPrimary4}`};
 `;
 const IconWrap = styled.div`
     padding-right: 10px;

@@ -67,23 +67,10 @@ class Button extends React.Component {
 Button.propTypes = {
     children: PropTypes.string.isRequired,
     onClick: PropTypes.func,
-
-    primary: PropTypes.bool,
-    primaryReverse: PropTypes.bool,
-    greyed: PropTypes.bool,
-    mini: PropTypes.bool,
-    small: PropTypes.bool,
-    full: PropTypes.bool,
 };
 
 Button.defaultProps = {
     onClick: noop,
-    primary: null,
-    primaryReverse: null,
-    greyed: null,
-    mini: null,
-    small: null,
-    full: null,
 };
 
 export default Button;

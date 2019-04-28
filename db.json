@@ -1,0 +1,233 @@
+{
+  "groups": [
+    {
+      "name": "Marketing Team",
+      "messages": [
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "That is cool. Wow",
+          "id": "3f898b86-a7ea-4c14-bdb8-6e78265f0e61"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "~~",
+          "id": "d77e9253-4b25-49fd-b655-4d19633d2a65"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "~~",
+          "id": "3099e7ca-6df6-4ca1-b44c-9936ea988d09"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "~~~~~",
+          "id": "2d2de55b-12ef-4b35-b600-c00aeb415a9f"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "~~~~~~~~~~~~~",
+          "id": "f2e4c605-c858-4936-8bfd-2709116e3f68"
+        }
+      ],
+      "users": [
+        {
+          "id": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "name": "wen"
+        },
+        {
+          "id": "a1f9f954-7dd4-41d9-8959-b319426a9769",
+          "name": "james"
+        }
+      ],
+      "id": "36fd7143-987d-4fdd-996f-211e174aadb6"
+    },
+    {
+      "name": "IT team",
+      "messages": [
+        {
+          "userId": "2e0330e6-c3ba-4bd9-9851-dbb559c4330f",
+          "userName": "elisa",
+          "text": "I am online.",
+          "id": "e78d38a6-d27f-4c3c-9117-059bc0927ebe"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "Welcome",
+          "id": "b07f6ae1-c534-4811-982b-82f9a231b3c4"
+        },
+        {
+          "userId": "2e0330e6-c3ba-4bd9-9851-dbb559c4330f",
+          "userName": "elisa",
+          "text": "How are you doing ? Dude",
+          "id": "6927e3ff-cf4d-4753-beae-ca8a258dab57"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "Good",
+          "id": "191b1d42-f2ef-43b2-9048-d09d5668a111"
+        },
+        {
+          "userId": "2e0330e6-c3ba-4bd9-9851-dbb559c4330f",
+          "userName": "elisaFlower",
+          "text": "Haha",
+          "id": "c93defd5-2dd7-4456-a18c-4d89d2eb6393"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "Serious?",
+          "id": "7552d06b-6ae4-4f31-8694-582ab4d78e88"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "Silly",
+          "id": "cc8ef98b-9c8a-4aeb-a161-87303ff2c182"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "Silly",
+          "id": "f3077410-63c7-4710-8fa1-2598217e1947"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "Silly",
+          "id": "97445fb4-3bd5-4b8f-81f5-72636d0f81a7"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "~~~",
+          "id": "9ecf8122-d1f6-421e-be6b-83295304c7dd"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "A long text that you won't believe it. A long text that you won't believe it. A long text that you won't believe it. A long text that you won't believe it. A long text that you won't believe it.",
+          "id": "59df03d6-a068-476e-8ab9-8147535521cd"
+        },
+        {
+          "userId": "2e0330e6-c3ba-4bd9-9851-dbb559c4330f",
+          "userName": "elisaFlower",
+          "text": "Look at this. Look at this. Look at this. Look at this. Look at this. Look at this.",
+          "id": "39644bd8-2339-4dd1-a08c-4a239a8b3115"
+        },
+        {
+          "userId": "2e0330e6-c3ba-4bd9-9851-dbb559c4330f",
+          "userName": "elisaFlower",
+          "text": "Haha",
+          "id": "f7421491-f663-47b8-a715-39bd17de4c97"
+        },
+        {
+          "userId": "a1f9f954-7dd4-41d9-8959-b319426a9769",
+          "userName": "james",
+          "text": "Hello everyone.",
+          "id": "df916a3b-b3ca-4230-b2b3-5b3fa24f38b9"
+        },
+        {
+          "userId": "a1f9f954-7dd4-41d9-8959-b319426a9769",
+          "userName": "james",
+          "text": "I am glad you are here",
+          "id": "f51f16ec-0c9a-4453-a358-d091c5156ae1"
+        },
+        {
+          "userId": "a1f9f954-7dd4-41d9-8959-b319426a9769",
+          "userName": "james",
+          "text": "Go to bar tonight ?",
+          "id": "6c0979d8-ffa1-43c2-b98c-6a28c8ce32e2"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "I am afraid not, I need go to find my wife tonight, she is lost",
+          "id": "567fdb03-4eb7-4c2f-a6ae-72dd7aef6259"
+        },
+        {
+          "userId": "a1f9f954-7dd4-41d9-8959-b319426a9769",
+          "userName": "james",
+          "text": "Lost in the jungle",
+          "id": "5672be8b-ff19-435e-b2f6-5ae20a18d80d"
+        },
+        {
+          "userId": "a1f9f954-7dd4-41d9-8959-b319426a9769",
+          "userName": "james",
+          "text": "?",
+          "id": "ebb50639-ea5a-4c12-bfbe-e32e7b4e1c28"
+        },
+        {
+          "userId": "a1f9f954-7dd4-41d9-8959-b319426a9769",
+          "userName": "james",
+          "text": "hello, I am back..",
+          "id": "a1f22beb-e06c-40bc-8353-2d106f71c2c2"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "Hello",
+          "id": "3cca0b82-50ac-4227-b644-49b3b91b7fef"
+        },
+        {
+          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "userName": "wen",
+          "text": "Haha",
+          "id": "0b3fea55-6a64-4ca9-bc9c-22fcf31aaa39"
+        }
+      ],
+      "users": [
+        {
+          "id": "da126d17-3d87-4631-9de4-b3291490ce0b",
+          "name": "wen"
+        },
+        {
+          "id": "2e0330e6-c3ba-4bd9-9851-dbb559c4330f",
+          "name": "elisaY"
+        },
+        {
+          "id": "a1f9f954-7dd4-41d9-8959-b319426a9769",
+          "name": "james"
+        }
+      ],
+      "id": "4cfd6249-cd0c-42ea-8969-bc49ef1e5a77"
+    },
+    {
+      "name": "Product Team",
+      "messages": [],
+      "users": [
+        {
+          "id": "a1f9f954-7dd4-41d9-8959-b319426a9769",
+          "name": "james"
+        }
+      ],
+      "id": "4bbd2586-9c69-43d9-8ed0-fdc7358aab50"
+    }
+  ],
+  "users": [
+    {
+      "name": "wen",
+      "password": "123",
+      "created": 1556475430419,
+      "id": "da126d17-3d87-4631-9de4-b3291490ce0b"
+    },
+    {
+      "name": "james",
+      "password": "123",
+      "created": 1556475528079,
+      "id": "a1f9f954-7dd4-41d9-8959-b319426a9769"
+    },
+    {
+      "name": "elisa",
+      "password": "123",
+      "created": 1556475853443,
+      "id": "2e0330e6-c3ba-4bd9-9851-dbb559c4330f"
+    }
+  ]
+}
