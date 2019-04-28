@@ -12,8 +12,10 @@ const Wrap = styled.div`
     justify-content: space-between;
     align-items: center;
     position: relative;
+    ${props => props.isActive ? `background: ${theme.grey1}` : ''};
 `;
 const IconWrap = styled.div`
+    padding-right: 10px;
 `;
 const StyledIcon = styled(Icon)`
     margin: 0 5px;
@@ -43,11 +45,13 @@ class ListItem extends React.Component {
         };
     }
 
-    onEditClick = () => {
+    onEditClick = (e) => {
+        e.stopPropagation();
         const { onEdit } = this.props;
         onEdit();
     }
-    onRemoveClick = () => {
+    onRemoveClick = (e) => {
+        e.stopPropagation();
         const { onRemove } = this.props;
         onRemove();
     }
@@ -63,7 +67,7 @@ class ListItem extends React.Component {
     }
 
     render () {
-        const { className, id, text, input } = this.props;
+        const { className, id, text, input, isActive, onClick } = this.props;
         const { isHovering } = this.state;
         const InputElem = input ? <InputWrap> { input } </InputWrap> : null;
 
@@ -72,6 +76,8 @@ class ListItem extends React.Component {
                 className={className} 
                 onMouseEnter={this.onMouseEnter} 
                 onMouseLeave={this.onMouseLeave}
+                isActive={isActive}
+                onClick={onClick}
             >
                 <Text> {text} </Text>
                 {
@@ -89,8 +95,10 @@ class ListItem extends React.Component {
 }
 
 ListItem.propTypes = {
+    isActive: PropTypes.bool,
 };
 ListItem.defaultProps = {
+    isActive: false,
 };
 
 export default ListItem;

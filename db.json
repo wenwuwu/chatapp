@@ -1,0 +1,57 @@
+{
+  "groups": [
+    {
+      "name": "Marketing",
+      "messages": [],
+      "users": [
+        {
+          "id": "46ef0a7f-bcf8-4a1a-b102-dbaa2b737314",
+          "name": "wen"
+        }
+      ],
+      "id": "914b6cd1-d11c-4b77-b2c8-603145e39034"
+    },
+    {
+      "name": "IT",
+      "messages": [],
+      "users": [
+        {
+          "id": "46ef0a7f-bcf8-4a1a-b102-dbaa2b737314",
+          "name": "wen"
+        }
+      ],
+      "id": "699b9741-f769-4bad-97fa-ca32a959d9ed"
+    },
+    {
+      "name": "HR",
+      "messages": [],
+      "users": [
+        {
+          "id": "46ef0a7f-bcf8-4a1a-b102-dbaa2b737314",
+          "name": "wen"
+        }
+      ],
+      "id": "ab83424f-30d3-47ea-87bd-065c4c6a309e"
+    }
+  ],
+  "users": [
+    {
+      "name": "wen",
+      "password": "123",
+      "created": 1556437928884,
+      "id": "46ef0a7f-bcf8-4a1a-b102-dbaa2b737314"
+    },
+    {
+      "name": "jame",
+      "password": "123",
+      "created": 1556447546391,
+      "id": "e2b2afb8-82c3-461c-8305-607fe6645d5b"
+    },
+    {
+      "name": "james",
+      "password": "123",
+      "created": 1556454454829,
+      "id": "1455c6a5-9be2-4262-874e-ceb3de59ed5e"
+    }
+  ]
+}

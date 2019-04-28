@@ -32,95 +32,84 @@ class ListPane extends React.Component {
         this.state = {
             list: props.list || [],
             currentEditingIdx: -1,
+            isAddingItem: props.isAddingItem,
         };
+    }
+    componentWillReceiveProps (nextProps) {
+        this.setState({
+            list: nextProps.list.slice(0),
+            currentEditingIdx: nextProps.currentEditingIdx,
+            isAddingItem: nextProps.isAddingItem,
+        });
     }
 
     onClickButton = () => {
-        const { list } = this.state;
-        const { onChange, defaultItemName } = this.props;
-        const obj = {
-            id: genId(''),
-            text: defaultItemName || '',
-        };
-        const newList = [...list, obj];
-        this.setState({
-            list: newList,
-            currentEditingIdx: list.length,
-        });
-        onChange(newList);
+        const { onClickAdd } = this.props; 
+        onClickAdd();
     }
     onInputEnter = (id, value) => {
-        const { list } = this.state;
-        const { onChange } = this.props;
-        const idx = _.findIndex(list, {id: id});
-        const old = list[idx];
-
-        this.hideInput();
-        if (old.text === value) {
-            return;
+        const { isAddingItem } = this.state;
+        if (isAddingItem) {
+            const { onNewItem } = this.props;
+            onNewItem(value);
         }
-        const obj = _.cloneDeep(old);
-        obj.text = value;
-
-        const newList = [
-            ...list.slice(0, idx),
-            obj,
-            ...list.slice(idx + 1),
-        ];
-        this.setState({
-            list: newList,
-        });
-        onChange(newList);
+        else {
+            const { onItemUpdate } = this.props;
+            onItemUpdate(id, value);
+        }
     }
-    onInputEsc = (id, value) => {
-        this.hideInput();
+    onInputEsc = (id) => {
+        const { onItemEditCancel } = this.props;
+        onItemEditCancel(id);
+        // this.hideInput();
     }
-    onInputBlur = (id, value) => {
-        setTimeout(this.hideInput, 0);  // Make sure button is clickable.
+    onInputBlur = (id) => {
+        const { onItemEditCancel } = this.props;
+        setTimeout(() => onItemEditCancel(id), 0);
+        // setTimeout(this.hideInput, 0);  // Make sure button is clickable.
     }
+    /*
     hideInput = () => {
         this.setState({
             currentEditingIdx: -1,
         });
     }
+    */
     onItemEdit = (id, value) => {
-        const { list } = this.state;
-        const idx = _.findIndex(list, {id: id});
-        this.setState({
-            currentEditingIdx: idx,
-        });
+        const { onItemEdit } = this.props;
+        onItemEdit(id);
+    }
+    onItemClick = (id) => {
+        const { onItemClick } = this.props;
+        onItemClick(id);
     }
     onItemRemove = (id) => {
-        const { list } = this.state;
-        const { onChange } = this.props;
-        const idx = _.findIndex(list, {id: id});
-
-        const newList = [
-            ...list.slice(0, idx),
-            ...list.slice(idx + 1),
-        ];
-        this.setState({
-            list: newList,
-        });
-        onChange(newList);
+        const { onDeleteItem } = this.props;
+        onDeleteItem(id);
     }
 
     render () {
-        const { className, btnName, defaultItemName } = this.props;
-        const { list, currentEditingIdx } = this.state;
+        const { className, btnName, activeIdx, defaultItemName } = this.props;
+        let { list, currentEditingIdx, isAddingItem } = this.state;
+
+        if (isAddingItem) {
+            list = list.slice(0);
+            list.push({id: `temp-${Date.now()}`, name: ''});
+            currentEditingIdx = list.length - 1;
+        }
 
         return (
             <Wrap className={className}>
                 <ListWrap>
                     {
                         list.map((obj, idx) => {
-                            const { id, text } = obj;
+                            const { id, name } = obj;
                             const inputElem = 
                                 <InputBar
-                                    value={text} 
+                                    value={name} 
                                     placeholder=""
                                     btnText="Add"
-                                    autoSelect={text === defaultItemName}
+                                    autoSelect={name === defaultItemName}
                                     onBlur={this.onInputBlur.bind(this, id)} 
                                     onEnter={this.onInputEnter.bind(this, id)} 
                                     onEsc={this.onInputEsc.bind(this, id)} 
@@ -131,10 +120,12 @@ class ListPane extends React.Component {
                                 <ListItem 
                                     key={id} 
                                     id={id} 
-                                    text={text} 
+                                    text={name} 
                                     input={input}
+                                    isActive={activeIdx === idx}
                                     onEdit={this.onItemEdit.bind(this, id)}
                                     onRemove={this.onItemRemove.bind(this, id)}
+                                    onClick={this.onItemClick.bind(this, id)}
                                 />
                             );
                         })
@@ -149,8 +140,18 @@ class ListPane extends React.Component {
 }
 
 ListPane.propTypes = {
+    activeIdx: PropTypes.number,
+    currentEditingIdx: PropTypes.number,
+    defaultItemName: PropTypes.string,
+    isAddingItem: PropTypes.bool,
+    onItemClick: PropTypes.func,
 };
 ListPane.defaultProps = {
+    activeIdx: -1,
+    currentEditingIdx: -1,
+    isAddingItem: false,
+    defaultItemName: '',
+    onItemClick: noop,
 };
 
 export default ListPane;

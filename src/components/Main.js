@@ -8,10 +8,11 @@ import ListPane        from './ListPane';
 import MessagePane     from './MessagePane';
 import io              from 'socket.io-client';
 
-const socket = io();
-socket.emit('new group', val);
-socket.on('new group', function (msg) {
-});
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import _ from 'lodash';
+import { newGroup as newGroupAction } from '../actions';
+import * as ActionCreators from '../actions';
 
 const center = `
     display: flex;
@@ -73,12 +74,155 @@ class Main extends React.Component {
         super(props);
     }
 
-    onGroupsChange = () => {
+    componentDidMount () {
+        // const socket = io('http://localhost:8080');
+        const socket = io();
+        // socket.emit('new group', val);
+        const { getUserInfo, getGroups } = this.props;
+        getUserInfo();
+        getGroups();
+
+        socket.on('new group', (msg) => {
+            const { newGroup } = this.props;
+            newGroup(msg);
+        });
+        socket.on('edit group name', (msg) => {
+            const { updateGroupName } = this.props;
+            const { id, name } = msg;
+            updateGroupName(id, name);
+        });
+        socket.on('delete group', (msg) => {
+            const { deleteGroup } = this.props;
+            const { id } = msg;
+            deleteGroup(id);
+        });
+        socket.on('new user in group', (msg) => {
+            const { newUserInGroup } = this.props;
+            const { groupId, user } = msg;
+            newUserInGroup(groupId, user);
+        });
+        socket.on('edit user name in group', (msg) => {
+            const { editUserName } = this.props;
+            const { groupId, user } = msg;
+            editUserName(groupId, user);
+        });
+        socket.on('delete user from group', (msg) => {
+            const { deleteUserFromGroup } = this.props;
+            const { groupId, user } = msg;
+            deleteUserFromGroup(groupId, user.id);
+        });
     }
-    onUsersChange = () => {
+
+    onClickGroupItem = (id) => {
+        const { selectGroup } = this.props;
+        selectGroup(id);
+    }
+    onGroupItemNameUpdate = (id, name) => {
+        const { postGroupName } = this.props;
+        const reqBody = { id, name, };
+        postGroupName(reqBody);
+    }
+    onUserItemNameUpdate = (id, name) => {
+        const { postUserName, groups } = this.props;
+        const { activeGroupId } = groups;
+        const reqBody = { id: activeGroupId, userId: id, name, };
+        postUserName(reqBody);
+    }
+    onGroupItemEditCancel = (id) => {
+        const { removeGroupNameEditing, groups, doneWithAddingGroup } = this.props;
+        const { isAddingGroup } = groups;
+        if (isAddingGroup) {
+            doneWithAddingGroup();
+        }
+        else {
+            removeGroupNameEditing(id);
+        }
+    }
+    onUserItemEditCancel = (id) => {
+        const { removeUserNameEditing, groups, doneWithAddingUserInGroup } = this.props;
+        const { isAddingUserInGroup } = groups;
+        if (isAddingUserInGroup) {
+            doneWithAddingUserInGroup();
+        }
+        else {
+            removeUserNameEditing(id);
+        }
+    }
+    onGroupItemEdit = (id) => {
+        const { setGroupNameEditing } = this.props;
+        setGroupNameEditing(id);
+    }
+    onUserItemEdit = (id) => {
+        const { setUserNameEditing } = this.props;
+        setUserNameEditing(id);
+    }
+    onDeleteGroup = (id) => {
+        const { postDeleteGroup } = this.props;
+        postDeleteGroup({id});
+    }
+    onDeleteUser = (id) => {
+        const { postDeleteUserInGroup, groups } = this.props;
+        const { activeGroupId } = groups;
+        const reqBody = { id: activeGroupId, userId: id };
+        postDeleteUserInGroup(reqBody);
+    }
+
+    onNewUser = (value) => {
+        const { postNewUserInGroup, groups } = this.props;
+        const { activeGroupId } = groups;
+        const reqBody = { id: activeGroupId, name: value };
+        postNewUserInGroup(reqBody);
+    }
+
+    onAddGroupClick = () => {
+        const { setAddingGroup } = this.props;
+        setAddingGroup();
+    }
+    onAddUserClick = () => {
+        const { setAddingUserInGroup } = this.props;
+        setAddingUserInGroup();
+    }
+
+    onNewGroup = (value) => {
+        const { createNewGroup, user } = this.props;
+        const group = {
+            name: value,
+            messages: [],
+            users: [user],
+        };
+        createNewGroup(newGroupAction(group));
     }
 
     render () {
+        console.log('-- Main.js props --');
+        console.log(this.props);
+
+        const { groups } = this.props;
+        const { 
+            list, 
+            currentEditingGroupId, 
+            currentEditingUserId, 
+            activeGroupId, 
+            isAddingGroup, 
+            isAddingUserInGroup,
+        } = groups;
+
+        const activeGroupIdx = _.findIndex(list, {id: activeGroupId});
+        const group = list[activeGroupIdx];
+        const userList = group ? group.users : [];
+        const currentEditingUserIdx = _.findIndex(userList, {id: currentEditingUserId});
+
+        console.log('-- groupList --');
+        console.log(list);
+        console.log('-- userList --');
+        console.log(userList);
+
+        const groupList = list.map(obj => {
+            return _.pick(obj, ['id', 'name']);
+        });
+        const currentEditingGroupIdx = _.findIndex(groupList, {id: currentEditingGroupId});
+
+
         return (
             <Wrap>
                 <NavBar>
@@ -89,17 +233,31 @@ class Main extends React.Component {
                 </NavBar>
                 <ContentWrap>
                     <GroupPane 
-                        list={[]} 
-                        defaultItemName="Group name" 
+                        list={groupList} 
+                        activeIdx={activeGroupIdx}
+                        currentEditingIdx={currentEditingGroupIdx}
                         btnName="Add Group"
-                        onChange={this.onGroupsChange} 
+                        onClickAdd={this.onAddGroupClick}
+                        onNewItem={this.onNewGroup} 
+                        onDeleteItem={this.onDeleteGroup} 
+                        onItemUpdate={this.onGroupItemNameUpdate} 
+                        onItemEditCancel={this.onGroupItemEditCancel}
+                        onItemEdit={this.onGroupItemEdit}
+                        onItemClick={this.onClickGroupItem} 
+                        isAddingItem={isAddingGroup}
                     />
                     <StyledMessagePane />
                     <UserPane 
-                        list={[]} 
-                        defaultItemName="User name" 
+                        list={userList} 
+                        currentEditingIdx={currentEditingUserIdx}
                         btnName="Add User" 
-                        onChange={this.onUsersChange} 
+                        onClickAdd={this.onAddUserClick}
+                        onNewItem={this.onNewUser} 
+                        onDeleteItem={this.onDeleteUser} 
+                        onItemUpdate={this.onUserItemNameUpdate} 
+                        onItemEditCancel={this.onUserItemEditCancel}
+                        onItemEdit={this.onUserItemEdit}
+                        isAddingItem={isAddingUserInGroup}
                     />
                 </ContentWrap>
             </Wrap>
@@ -112,4 +270,7 @@ Main.propTypes = {
 Main.defaultProps = {
 };
 
-export default Main;
+export default connect(
+    (state, ownProps) => state,
+    dispatch => bindActionCreators(ActionCreators, dispatch),
+)(Main);
