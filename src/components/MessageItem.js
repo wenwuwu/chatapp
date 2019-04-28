@@ -11,7 +11,7 @@ const Wrap = styled.div`
 `;
 const UserName = styled.span`
     font-weight: 500;
-    color: ${theme.colorBasic};
+    color: ${theme.colorPrimary1};
     font-size: ${theme.fontSizeBasic};
 `;
 const Text = styled.span`

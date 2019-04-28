@@ -49,6 +49,7 @@ const button = {
     width: {
         small : '120px',
         full  : '100%',
+        mini  : '80px',
     },
     height: {
         default: '30px',

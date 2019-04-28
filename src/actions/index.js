@@ -17,15 +17,22 @@ export const SET_ADDING_GROUP = 'SET_ADDING_GROUP';
 export const SET_ADDING_USER_IN_GROUP = 'SET_ADDING_USER_IN_GROUP';
 export const DELETE_USER_FROM_GROUP = 'DELETE_USER_FROM_GROUP'; 
 export const EDIT_USER_NAME_IN_GROUP = 'EDIT_USER_NAME_IN_GROUP';
-
-export const GET_GROUP = 'GET_GROUP'; 
 export const NEW_MESSAGE = 'NEW_MESSAGE';
+
+// export const GET_GROUP = 'GET_GROUP'; 
 
 export function setUser (id, name) {
     return {
         type: SET_USER,
         id,
         name,
+    };
+}
+export function addNewMessage (id, message) {
+    return {
+        type: NEW_MESSAGE,
+        id,
+        message,
     };
 }
 export function deleteGroup (id) {
@@ -295,3 +302,22 @@ export function postUserName (data) {
         });
     };
 }
+export function doLogout (data) {
+    return (dispatch, getState) => {
+        return fetch('/logout')
+        .then(rsp => rsp.json())
+        .then(data => {
+            const { status } = data;
+            if (status === 200) {
+                window.location.href = '/login.html';
+            }
+            else {
+                throw data;
+            }
+        })
+        .catch(({status, message}) => {
+            alert(`Status: ${status}, Message: ${message}`);
+        });
+    };
+}
+

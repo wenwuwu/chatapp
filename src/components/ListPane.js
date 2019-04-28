@@ -48,6 +48,11 @@ class ListPane extends React.Component {
         onClickAdd();
     }
     onInputEnter = (id, value) => {
+        value = value.trim();
+        if (value.length < 1) {
+            return;
+        }
+
         const { isAddingItem } = this.state;
         if (isAddingItem) {
             const { onNewItem } = this.props;

@@ -16,6 +16,7 @@ import {
     SET_ADDING_USER_IN_GROUP,
     DELETE_USER_FROM_GROUP,
     EDIT_USER_NAME_IN_GROUP,
+    NEW_MESSAGE,
 } from '../actions';
 
 const defaultState = {
@@ -141,6 +142,12 @@ function groups (state = defaultState, action) {
 
         case REMOVE_USER_NAME_EDITING:
             obj.currentEditingUserId = -1;
+            return obj;
+
+        case NEW_MESSAGE:
+            obj = _.cloneDeep(state);
+            const msgs = _.find(obj.list, {id: action.id}).messages;
+            msgs.push(action.message);
             return obj;
 
         default:

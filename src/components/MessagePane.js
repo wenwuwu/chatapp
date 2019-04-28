@@ -30,30 +30,7 @@ class MessagePane extends React.Component {
     constructor (props) {
         super(props);
         this.messageList = React.createRef();
-
-        this.state = {
-            list: props.list || [],
-        };
     }
-
-    addToList (value) {
-        const { list } = this.state;
-        const obj = {
-            id: genId(),
-            userId: '',
-            userName: 'Wenwu',
-            time: Date.now(),
-            text: value,
-        };
-        const newList = [
-            ...list,
-            obj,
-        ];
-        this.setState({
-            list: newList,
-        });
-    }
-
     componentDidMount () {
         this.autoScroll();
     }
@@ -65,14 +42,16 @@ class MessagePane extends React.Component {
         // elem.scrollIntoView({behavior: 'smooth'});
         elem.scrollTop = elem.scrollHeight;
     }
-
     onInputEnter = (value) => {
-        this.addToList(value);
+        value = value.trim();
+        if (value.length < 1) {
+            return;
+        }
+        const { onMessage } = this.props;
+        onMessage(value);
     }
-
     render () {
-        const { className } = this.props;
-        const { list } = this.state;
+        const { className, isBtnEnabled, list } = this.props;
 
         return (
             <Wrap className={className}>
@@ -88,6 +67,7 @@ class MessagePane extends React.Component {
                     placeholder="say something.."
                     btnText="Send"
                     onEnter={this.onInputEnter} 
+                    isBtnEnabled={isBtnEnabled}
                 />
             </Wrap>
         );
@@ -95,8 +75,14 @@ class MessagePane extends React.Component {
 }
 
 MessagePane.propTypes = {
+    isBtnEnabled: PropTypes.bool,
+    list: PropTypes.array,
+    onMessage: PropTypes.func,
 };
 MessagePane.defaultProps = {
+    isBtnEnabled: true,
+    list: [],
+    onMessage: noop,
 };
 
 export default MessagePane;

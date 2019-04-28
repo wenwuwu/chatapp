@@ -120,7 +120,6 @@ low(adapter)
                     io.emit('delete group', group);
                 });
         });
-
         /*
         app.post('/new-message', checkAuth, (req, res) => {
             const { id, message } = req.body;
@@ -133,7 +132,6 @@ low(adapter)
                 .then(message => res.status(200).send({message}));
         });
         */
-
         app.post('/new-user-in-group', checkAuth, (req, res) => {
             const { id, name } = req.body;
             const user = db.get('users')
@@ -146,14 +144,15 @@ low(adapter)
                     .getById(id)
                     .get('users')
                     .insert(obj)
-                    .write();
-
-                const data = {
-                    groupId: id,
-                    user: newUser,
-                };
-                res.status(200).send({status: 200, ...data});
-                io.emit('new user in group', data);
+                    .write()
+                    .then(user => {
+                        const data = {
+                            groupId: id,
+                            user,
+                        };
+                        res.status(200).send({status: 200, ...data});
+                        io.emit('new user in group', data);
+                    });
             }
             else {
                 const obj = {
@@ -197,8 +196,6 @@ low(adapter)
                     io.emit('delete user from group', obj);
                 });
         });
-
-
         app.post('/register', (req, res) => {
             const { name, password } = req.body;
             const users = db.get('users');
@@ -258,7 +255,12 @@ low(adapter)
         });
         app.get('/logout', (req, res) => {
             delete req.session.user_id;
-            res.redirect('/login.html');
+            const obj = {
+                status: 200,
+                message: 'success',
+            };
+            res.status(200).send(obj);
+            // res.redirect('/login.html');
         });
         app.get('/user-info', checkAuth, (req, res) => {
             const user = db.get('users')
@@ -286,85 +288,26 @@ low(adapter)
 
             res.status(200).send({status: 200, groups});
         });
+        /*
         app.get('/group/:id', checkAuth, (req, res) => {
             db.get('groups')
                 .getById(req.params.id)
                 .value()
                 .then(group => res.status(200).send({group}));
         });
-
-
+        */
         io.on('connection', function (socket) {
             socket.on('new message', function (msg) {
-                const { id, message } = msg;
-                const { name, text } = message;
+                const { id, userId, userName, text } = msg;
                 db.get('groups')
                     .getById(id)
                     .get('messages')
-                    .insert({name, text})
+                    .insert({userId, userName, text})
                     .write()
-                    .then(message => io.emit('new message', msg));
-            });
-
-            /*
-            socket.on('new group', function (msg) {
-                const { id, name, messages, users } = msg;
-                db.get('groups')
-                    .insert({id, name, messages, users});
-                    .write()
-                    .then(group => io.emit('new group', msg));
-            });
-            socket.on('edit group name', function (msg) {
-                const { id, name } = msg;
-                db.get('groups')
-                    .updateById(id, {name})
-                    .write()
-                    .then(group => io.emit('edit group name', msg));
-            });
-            socket.on('delete group', function (msg) {
-                const { id } = msg;
-                db.get('groups')
-                    .removeById(id)
-                    .write()
-                    .then(group => io.emit('delete group', msg));
-            });
-            socket.on('new user in group', function (msg) {
-                const { id, userId, userName } = msg;
-                db.get('users')
-                    .getById(userId)
-                    .value()
-                    .then(user => {
-                        if (user) {
-                            db.get('groups')
-                                .getById(id)
-                                .get('users')
-                                .insert({id: userId, name: userName})
-                                .write()
-                                .then(user => io.emit('new user in group', msg));
-                        }
-                        else {
-                        }
+                    .then(message => {
+                        io.emit('new message', {id, message});
                     });
             });
-            socket.on('edit user name in group', function (msg) {
-                const { id, userId, name } = msg;
-                db.get('groups')
-                    .getById(id)
-                    .get('users')
-                    .updateById(userId, {name})
-                    .write()
-                    .then(user => io.emit('edit user name in group', msg));
-            });
-            socket.on('delete user from group', function (msg) {
-                const { id, userId } = msg;
-                db.get('groups')
-                    .getById(id)
-                    .get('users')
-                    .removeById(userId)
-                    .write()
-                    .then(user => io.emit('delete user from group', msg));
-            });
-            */
         });
 
         initRoutes();

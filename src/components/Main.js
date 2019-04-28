@@ -14,6 +14,9 @@ import _ from 'lodash';
 import { newGroup as newGroupAction } from '../actions';
 import * as ActionCreators from '../actions';
 
+// TODO unit test
+// TODO clean code.
+
 const center = `
     display: flex;
     justify-content: center;
@@ -33,7 +36,9 @@ const Wrap = styled.div`
 const NavBar = styled.div`
     height: 60px;
     padding: 0 10px;
-    ${center}
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 `;
 const LogoWrap = styled.div`
     ${vCenter}
@@ -46,6 +51,34 @@ const LogoText = styled.span`
     margin-left: 10px;
     font-size: ${theme.fontSizeH6};
     color: ${theme.colorBasic};
+`;
+const Left = styled.div`
+`;
+const UserProfile = styled.div`
+    background: ${theme.background};
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.12), 0 2px 4px 0 rgba(0,0,0,0.08);
+    position: absolute;
+    top: 30px;
+    right: 0;
+    z-index: 100;
+    display: none;
+`;
+const Right = styled.div`
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 30px;
+    &:hover > ${UserProfile} {
+        display: block;
+    }
+`;
+const UserName = styled.div`
+    font-size: ${theme.fontSizeBasic};
+    color: ${theme.colorPrimary1};
+`;
+const LogoutButton = styled(Button)`
+    margin: 20px;
 `;
 
 const ContentWrap = styled.div`
@@ -68,6 +101,7 @@ const UserPane = styled(ListPane)`
     height: 100%;
     flex: 1;
 `;
+const socket = io();
 
 class Main extends React.Component {
     constructor (props) {
@@ -76,8 +110,6 @@ class Main extends React.Component {
 
     componentDidMount () {
         // const socket = io('http://localhost:8080');
-        const socket = io();
-        // socket.emit('new group', val);
         const { getUserInfo, getGroups } = this.props;
         getUserInfo();
         getGroups();
@@ -110,6 +142,11 @@ class Main extends React.Component {
             const { deleteUserFromGroup } = this.props;
             const { groupId, user } = msg;
             deleteUserFromGroup(groupId, user.id);
+        });
+        socket.on('new message', (msg) => {
+            const { addNewMessage } = this.props;
+            const { id, message } = msg;
+            addNewMessage(id, message);
         });
     }
 
@@ -193,11 +230,36 @@ class Main extends React.Component {
         createNewGroup(newGroupAction(group));
     }
 
+    logout = () => {
+        const { doLogout } = this.props;
+        doLogout();
+    }
+
+    amInGroup (list) {
+        const { user } = this.props;
+        return _.findIndex(list, {id: user.id}) >= 0;
+    }
+
+    onMessage = (text) => {
+        const { user, groups } = this.props;
+        const { activeGroupId, list } = groups;
+        const group = _.find(list, {id: activeGroupId});
+        const userInGroup = _.find(group.users, {id: user.id});
+
+        const msg = {
+            id: activeGroupId,
+            userId: user.id,
+            userName: userInGroup.name, // Better than user.name (e.g. Nick name for this group)
+            text,
+        };
+        socket.emit('new message', msg);
+    }
+
     render () {
         console.log('-- Main.js props --');
         console.log(this.props);
 
-        const { groups } = this.props;
+        const { groups, user } = this.props;
         const { 
             list, 
             currentEditingGroupId, 
@@ -211,25 +273,36 @@ class Main extends React.Component {
         const group = list[activeGroupIdx];
         const userList = group ? group.users : [];
         const currentEditingUserIdx = _.findIndex(userList, {id: currentEditingUserId});
+        const messages = group ? group.messages : [];
 
         console.log('-- groupList --');
         console.log(list);
         console.log('-- userList --');
         console.log(userList);
+        console.log('-- messages --');
+        console.log(messages);
 
         const groupList = list.map(obj => {
             return _.pick(obj, ['id', 'name']);
         });
         const currentEditingGroupIdx = _.findIndex(groupList, {id: currentEditingGroupId});
 
+        const isSendBtnEnabled = activeGroupIdx >= 0 && this.amInGroup(userList);
 
         return (
             <Wrap>
                 <NavBar>
+                    <Left />
                     <LogoWrap>
                         <LogoIcon type="comments" />
                         <LogoText> Chat App </LogoText>
                     </LogoWrap>
+                    <Right>
+                        <UserName> {user.name} </UserName>
+                        <UserProfile>
+                            <LogoutButton primary mini onClick={this.logout}> Logout </LogoutButton>
+                        </UserProfile>
+                    </Right>
                 </NavBar>
                 <ContentWrap>
                     <GroupPane 
@@ -246,7 +319,11 @@ class Main extends React.Component {
                         onItemClick={this.onClickGroupItem} 
                         isAddingItem={isAddingGroup}
                     />
-                    <StyledMessagePane />
+                    <StyledMessagePane 
+                        isBtnEnabled={isSendBtnEnabled} 
+                        onMessage={this.onMessage}
+                        list={messages}
+                    />
                     <UserPane 
                         list={userList} 
                         currentEditingIdx={currentEditingUserIdx}

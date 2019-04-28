@@ -79,11 +79,13 @@ class InputBar extends React.Component {
     }
     onKeyDown = (e) => {
         const code = e.keyCode;
-        const { onEsc } = this.props;
+        const { onEsc, isBtnEnabled } = this.props;
         const { value } = this.state;
 
         if (code === 13) {      // Enter
-            this.onEnter();
+            if (isBtnEnabled) {
+                this.onEnter();
+            }
         }
         else if (code === 27) {     // Esc
             onEsc(value);
@@ -105,8 +107,16 @@ class InputBar extends React.Component {
     }
 
     render () {
-        const { className, placeholder, btnText } = this.props;
+        const { className, placeholder, btnText, isBtnEnabled } = this.props;
         const { value } = this.state;
+
+        const btnStyle = {};
+        if (isBtnEnabled) {
+            btnStyle.primary = true;
+        }
+        else {
+            btnStyle.greyed = true;
+        }
 
         return (
             <Wrap className={className}>
@@ -122,7 +132,7 @@ class InputBar extends React.Component {
                 />
                 {
                     btnText
-                     ?  <StyledButton primary small onClick={this.onClickButton}> {btnText} </StyledButton>
+                     ?  <StyledButton small onClick={this.onClickButton} {...btnStyle}> {btnText} </StyledButton>
                      : null
                 }
             </Wrap>
@@ -141,6 +151,7 @@ InputBar.propTypes = {
     onEsc: PropTypes.func,
     autoSelect: PropTypes.bool,
     btnText: PropTypes.string,
+    isBtnEnabled: PropTypes.bool,
 };
 InputBar.defaultProps = {
     className: '',
@@ -153,6 +164,7 @@ InputBar.defaultProps = {
     onEsc: noop,
     autoSelect: false,
     btnText: '',
+    isBtnEnabled: true,
 };
 
 export default InputBar;
