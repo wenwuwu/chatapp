@@ -1,17 +1,14 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import configureStore from './store/configureStore';
-// import { Router, Route, browserHistory } from 'react-router';
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import theme from './theme.js';
+// import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import Main from './components/Main';
-// import { save } from './api';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faComments, faPen, faPlus, faTimes } from '@fortawesome/free-solid-svg-icons';
+import { createGlobalStyle } from 'styled-components';
 
-// const store = configureStore(window.initialState);
 const store = configureStore();
-// store.subscribe(() => save(store.getState()));
 
 const icons = [
     faComments,
@@ -21,12 +18,26 @@ const icons = [
 ];
 library.add(...icons);
 
+const GlobalStyle = createGlobalStyle`
+    body {
+        margin: 0;
+        padding: 0;
+        height: 100vh;
+        color: ${theme.colorBasic};
+        font-size: ${theme.fontSizeBasic};
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+        "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+        sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+`;
+
 function App () {
     return (
         <Provider store={store}>
-            <Router>
-                <Route path="/" exact component={Main} />
-            </Router>
+            <GlobalStyle />
+            <Main />
         </Provider>
     );
 }

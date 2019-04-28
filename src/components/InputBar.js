@@ -141,7 +141,6 @@ class InputBar extends React.Component {
 }
 
 InputBar.propTypes = {
-    className: PropTypes.string,
     value: PropTypes.string,
     placeholder: PropTypes.string,
     onChange: PropTypes.func,
@@ -154,7 +153,6 @@ InputBar.propTypes = {
     isBtnEnabled: PropTypes.bool,
 };
 InputBar.defaultProps = {
-    className: '',
     value: '',
     placeholder: '',
     onChange: noop,

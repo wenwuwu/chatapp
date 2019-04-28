@@ -1,13 +1,12 @@
 import React           from 'react';
 import PropTypes       from 'prop-types';
 import Icon            from './Icon';
-import styled, { css } from 'styled-components';
 import theme           from '../theme.js';
 import Button          from './Button';
 import ListPane        from './ListPane';
 import MessagePane     from './MessagePane';
 import io              from 'socket.io-client';
-
+import styled, { css } from 'styled-components';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import _ from 'lodash';
@@ -15,7 +14,6 @@ import { newGroup as newGroupAction } from '../actions';
 import * as ActionCreators from '../actions';
 
 // TODO unit test
-// TODO clean code.
 
 const center = `
     display: flex;
@@ -26,7 +24,6 @@ const vCenter = `
     display: flex;
     align-items: center;
 `;
-
 const Wrap = styled.div`
     display: flex;
     flex-direction: column;
@@ -256,9 +253,6 @@ class Main extends React.Component {
     }
 
     render () {
-        console.log('-- Main.js props --');
-        console.log(this.props);
-
         const { groups, user } = this.props;
         const { 
             list, 
@@ -275,18 +269,10 @@ class Main extends React.Component {
         const currentEditingUserIdx = _.findIndex(userList, {id: currentEditingUserId});
         const messages = group ? group.messages : [];
 
-        console.log('-- groupList --');
-        console.log(list);
-        console.log('-- userList --');
-        console.log(userList);
-        console.log('-- messages --');
-        console.log(messages);
-
         const groupList = list.map(obj => {
             return _.pick(obj, ['id', 'name']);
         });
         const currentEditingGroupIdx = _.findIndex(groupList, {id: currentEditingGroupId});
-
         const isSendBtnEnabled = activeGroupIdx >= 0 && this.amInGroup(userList);
 
         return (
@@ -340,11 +326,6 @@ class Main extends React.Component {
             </Wrap>
         );
     }
-};
-
-Main.propTypes = {
-};
-Main.defaultProps = {
 };
 
 export default connect(

@@ -21,11 +21,9 @@ const Icon = ({type, onClick, className}) => (
 
 Icon.propTypes = {
     type: PropTypes.string.isRequired,
-    className: PropTypes.string,
     onClick: PropTypes.func,
 };
 Icon.defaultProps = {
-    className: '',
     onClick: noop,
 };
 

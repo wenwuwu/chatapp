@@ -1,7 +1,6 @@
 import React           from 'react';
 import PropTypes       from 'prop-types';
 import styled, { css } from 'styled-components';
-import { noop, formatTime } from '../utils/utils';
 import theme from '../theme';
 import _ from 'lodash';
 
@@ -30,6 +29,8 @@ const MessageItem = ({ className, userName, text }) => (
 );
 
 MessageItem.propTypes = {
+    userName: PropTypes.string.isRequired,
+    text: PropTypes.string.isRequired,
 };
 MessageItem.defaultProps = {
 };

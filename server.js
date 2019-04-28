@@ -120,18 +120,6 @@ low(adapter)
                     io.emit('delete group', group);
                 });
         });
-        /*
-        app.post('/new-message', checkAuth, (req, res) => {
-            const { id, message } = req.body;
-            const { name, text } = message;
-            db.get('groups')
-                .getById(id)
-                .get('messages')
-                .insert({name, text})
-                .write()
-                .then(message => res.status(200).send({message}));
-        });
-        */
         app.post('/new-user-in-group', checkAuth, (req, res) => {
             const { id, name } = req.body;
             const user = db.get('users')

@@ -1,7 +1,7 @@
 import React           from 'react';
 import PropTypes       from 'prop-types';
 import styled, { css } from 'styled-components';
-import { noop, genId } from '../utils/utils';
+import { noop } from '../utils/utils';
 import theme from '../theme';
 import _ from 'lodash';
 import InputBar from './InputBar';

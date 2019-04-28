@@ -5,7 +5,7 @@ import theme from '../../theme';
 * Available options:
 *
 *     types: primary, primaryReverse, greyed
-*     sizes: small, full
+*     sizes: mini, small, full
 */
 
 const button = {

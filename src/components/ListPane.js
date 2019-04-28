@@ -1,8 +1,7 @@
 import React           from 'react';
 import PropTypes       from 'prop-types';
 import styled, { css } from 'styled-components';
-import { noop, genId } from '../utils/utils';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { noop } from '../utils/utils';
 import Button from './Button';
 import theme from '../theme';
 import ListItem from './ListItem';
@@ -30,7 +29,7 @@ class ListPane extends React.Component {
         super(props);
 
         this.state = {
-            list: props.list || [],
+            list: props.list,
             currentEditingIdx: -1,
             isAddingItem: props.isAddingItem,
         };
@@ -66,20 +65,11 @@ class ListPane extends React.Component {
     onInputEsc = (id) => {
         const { onItemEditCancel } = this.props;
         onItemEditCancel(id);
-        // this.hideInput();
     }
     onInputBlur = (id) => {
         const { onItemEditCancel } = this.props;
-        setTimeout(() => onItemEditCancel(id), 0);
-        // setTimeout(this.hideInput, 0);  // Make sure button is clickable.
+        setTimeout(() => onItemEditCancel(id), 0); // Make sure button is clickable.
     }
-    /*
-    hideInput = () => {
-        this.setState({
-            currentEditingIdx: -1,
-        });
-    }
-    */
     onItemEdit = (id, value) => {
         const { onItemEdit } = this.props;
         onItemEdit(id);
@@ -145,18 +135,33 @@ class ListPane extends React.Component {
 }
 
 ListPane.propTypes = {
+    list: PropTypes.array,
     activeIdx: PropTypes.number,
     currentEditingIdx: PropTypes.number,
     defaultItemName: PropTypes.string,
     isAddingItem: PropTypes.bool,
     onItemClick: PropTypes.func,
+    onClickAdd: PropTypes.func,
+    onNewItem: PropTypes.func,
+    onItemUpdate: PropTypes.func,
+    onItemEditCancel: PropTypes.func,
+    onItemEdit: PropTypes.func,
+    onDeleteItem: PropTypes.func,
+    btnName: PropTypes.string.isRequired,
 };
 ListPane.defaultProps = {
+    list: [],
     activeIdx: -1,
     currentEditingIdx: -1,
     isAddingItem: false,
     defaultItemName: '',
     onItemClick: noop,
+    onClickAdd: noop,
+    onNewItem: noop,
+    onItemUpdate: noop,
+    onItemEditCancel: noop,
+    onItemEdit: noop,
+    onDeleteItem: noop,
 };
 
 export default ListPane;

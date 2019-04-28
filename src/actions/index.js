@@ -1,5 +1,3 @@
-import { genId } from '../utils/utils';
-
 export const SET_USER = 'SET_USER'; 
 export const SET_GROUPS_LIST = 'SET_GROUPS_LIST'; 
 export const SELECT_GROUP = 'SELECT_GROUP'; 
@@ -320,4 +318,3 @@ export function doLogout (data) {
         });
     };
 }
-

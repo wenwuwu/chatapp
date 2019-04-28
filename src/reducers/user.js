@@ -3,7 +3,7 @@ import {
     SET_USER
 } from '../actions';
 
-function user (state = [], action) {
+function user (state = {}, action) {
 
     switch (action.type) {
         case SET_USER:

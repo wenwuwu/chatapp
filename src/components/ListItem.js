@@ -67,7 +67,7 @@ class ListItem extends React.Component {
     }
 
     render () {
-        const { className, id, text, input, isActive, onClick } = this.props;
+        const { className, text, input, isActive, onClick } = this.props;
         const { isHovering } = this.state;
         const InputElem = input ? <InputWrap> { input } </InputWrap> : null;
 
@@ -96,9 +96,19 @@ class ListItem extends React.Component {
 
 ListItem.propTypes = {
     isActive: PropTypes.bool,
+    text: PropTypes.string,
+    onEdit: PropTypes.func,
+    onRemove: PropTypes.func,
+    onClick: PropTypes.func,
+    input: PropTypes.element,
 };
 ListItem.defaultProps = {
     isActive: false,
+    text: '',
+    onEdit: noop,
+    onRemove: noop,
+    onClick: noop,
+    input: null,
 };
 
 export default ListItem;
