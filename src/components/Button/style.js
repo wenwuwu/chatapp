@@ -47,9 +47,10 @@ const button = {
         default: theme.borderRadius,
     },
     width: {
-        small : '120px',
-        full  : '100%',
-        mini  : '80px',
+        default : '120px',
+        mini    : '50px',
+        small   : '80px',
+        full    : '100%',
     },
     height: {
         default: '30px',

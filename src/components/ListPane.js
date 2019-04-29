@@ -101,6 +101,7 @@ class ListPane extends React.Component {
                             const { id, name } = obj;
                             const inputElem = 
                                 <InputBar
+                                    useMiniBtn={true}
                                     value={name} 
                                     placeholder=""
                                     btnText="Add"

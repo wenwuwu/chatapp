@@ -107,7 +107,7 @@ class InputBar extends React.Component {
     }
 
     render () {
-        const { className, placeholder, btnText, isBtnEnabled } = this.props;
+        const { className, placeholder, btnText, isBtnEnabled, useMiniBtn } = this.props;
         const { value } = this.state;
 
         const btnStyle = {};
@@ -116,6 +116,9 @@ class InputBar extends React.Component {
         }
         else {
             btnStyle.greyed = true;
+        }
+        if (useMiniBtn) {
+            btnStyle.mini = true;
         }
 
         return (
@@ -132,7 +135,7 @@ class InputBar extends React.Component {
                 />
                 {
                     btnText
-                     ?  <StyledButton small onClick={this.onClickButton} {...btnStyle}> {btnText} </StyledButton>
+                     ?  <StyledButton onClick={this.onClickButton} {...btnStyle}> {btnText} </StyledButton>
                      : null
                 }
             </Wrap>
@@ -151,6 +154,7 @@ InputBar.propTypes = {
     autoSelect: PropTypes.bool,
     btnText: PropTypes.string,
     isBtnEnabled: PropTypes.bool,
+    useMiniBtn: PropTypes.bool,
 };
 InputBar.defaultProps = {
     value: '',
@@ -163,6 +167,7 @@ InputBar.defaultProps = {
     autoSelect: false,
     btnText: '',
     isBtnEnabled: true,
+    useMiniBtn: false,
 };
 
 export default InputBar;

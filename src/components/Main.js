@@ -286,7 +286,7 @@ class Main extends React.Component {
                     <Right>
                         <UserName> {user.name} </UserName>
                         <UserProfile>
-                            <LogoutButton primary mini onClick={this.logout}> Logout </LogoutButton>
+                            <LogoutButton primary small onClick={this.logout}> Logout </LogoutButton>
                         </UserProfile>
                     </Right>
                 </NavBar>
