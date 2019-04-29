@@ -23,6 +23,9 @@ const ListWrap = styled.div`
     flex: 1;
     overflow-y: scroll;
 `;
+const StyledListItem = styled(ListItem)`
+    margin: 5px 0;
+`;
 
 class ListPane extends React.Component {
     constructor (props) {
@@ -113,7 +116,7 @@ class ListPane extends React.Component {
                             const input = currentEditingIdx === idx ? inputElem : null;
 
                             return (
-                                <ListItem 
+                                <StyledListItem 
                                     key={id} 
                                     id={id} 
                                     text={name} 

@@ -1,52 +1,6 @@
 {
   "groups": [
     {
-      "name": "Marketing Team",
-      "messages": [
-        {
-          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
-          "userName": "wen",
-          "text": "That is cool. Wow",
-          "id": "3f898b86-a7ea-4c14-bdb8-6e78265f0e61"
-        },
-        {
-          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
-          "userName": "wen",
-          "text": "~~",
-          "id": "d77e9253-4b25-49fd-b655-4d19633d2a65"
-        },
-        {
-          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
-          "userName": "wen",
-          "text": "~~",
-          "id": "3099e7ca-6df6-4ca1-b44c-9936ea988d09"
-        },
-        {
-          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
-          "userName": "wen",
-          "text": "~~~~~",
-          "id": "2d2de55b-12ef-4b35-b600-c00aeb415a9f"
-        },
-        {
-          "userId": "da126d17-3d87-4631-9de4-b3291490ce0b",
-          "userName": "wen",
-          "text": "~~~~~~~~~~~~~",
-          "id": "f2e4c605-c858-4936-8bfd-2709116e3f68"
-        }
-      ],
-      "users": [
-        {
-          "id": "da126d17-3d87-4631-9de4-b3291490ce0b",
-          "name": "wen"
-        },
-        {
-          "id": "a1f9f954-7dd4-41d9-8959-b319426a9769",
-          "name": "james"
-        }
-      ],
-      "id": "36fd7143-987d-4fdd-996f-211e174aadb6"
-    },
-    {
       "name": "IT team",
       "messages": [
         {
@@ -193,21 +147,10 @@
         },
         {
           "id": "a1f9f954-7dd4-41d9-8959-b319426a9769",
-          "name": "james"
+          "name": "james3"
         }
       ],
       "id": "4cfd6249-cd0c-42ea-8969-bc49ef1e5a77"
-    },
-    {
-      "name": "Product Team",
-      "messages": [],
-      "users": [
-        {
-          "id": "a1f9f954-7dd4-41d9-8959-b319426a9769",
-          "name": "james"
-        }
-      ],
-      "id": "4bbd2586-9c69-43d9-8ed0-fdc7358aab50"
     }
   ],
   "users": [
