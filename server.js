@@ -26,10 +26,10 @@ app.use(session({
     saveUninitialized: false,
 }));
 app.use(function (err, req, res, next) {
-    const { status = 500, messages } = err;
-    console.error(message);
+    console.error(err);
+    const { status = 500, message } = err;
     // console.error(err.stack);
-    res.status(status).send({ status, messages });
+    res.status(status).send({ status, message });
 });
 io.use(checkSocketAuth);
 
