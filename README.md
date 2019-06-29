@@ -1,6 +1,5 @@
 
-haha
-## Guide
+# Guide
 
 1. When you add a new group, you are automatically joined in the group.
 2. You cannot add a non-registered user to a group. 
